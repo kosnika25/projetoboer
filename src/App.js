@@ -5,6 +5,7 @@ import Contact from './screens/Contact';
 import About from './screens/About';
 import Register from './screens/Register';
 import NavBar from './components/NavBar';
+import Cadastroloja from './screens/Cadastro_loja';
 import logo from './logo.webp';
 import './App.css';
  
@@ -24,6 +25,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/about" element={<About />} />
+                <Route path="/cadastroloja" element={<Cadastroloja />} />
             </Routes>
           </div>
         </main>
