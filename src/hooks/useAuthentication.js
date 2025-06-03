@@ -25,8 +25,9 @@ export const useAuthentication = () => {
         setLoading(true);
         setError(null);
  
+ 
         try {
-            const {user} = await createUserWithEmailAndPassword(
+            const { user } = await createUserWithEmailAndPassword(
                 auth, data.displayEmail, data.displayPassword
             )
  
@@ -37,30 +38,57 @@ export const useAuthentication = () => {
         }
         catch (error) {
             let systemErrorMessage;
-            if (error.message.includes("Password")){
+            if (error.message.includes("Password")) {
                 systemErrorMessage = "A senha precisa conter pelo menos 6 caracteres";
             }
-            else if(error.message.includes("email-already")){
+            else if (error.message.includes("email-already")) {
                 systemErrorMessage = "E-mail já cadastrado";
             }
             else {
                 systemErrorMessage = "Ocorreu um erro - Tente Novamente";
             }
             setError(systemErrorMessage);
-        }finally {
-        setLoading(false);
+        } finally {
+            setLoading(false);
         }
     }
  
-    useEffect (() => {
-        return()  => setCancelled(true);
-      },[]);
+    //método para logar ao projeto
+    const login = async (data) => {
+        checkIfIsCancelled()
+        setLoading(true)
+        setError(false)
  
-      return {
+        try {
+            await signInWithEmailAndPassword(auth, data.email, data.password)
+ 
+        } catch (error) {
+            let systemErrorMessage;
+ 
+            if (error.message.includes("user-not-found")) {
+                systemErrorMessage = "Usuário não Cadastrado"
+            } else if (error.message.includes("wrong-password")) {
+                systemErrorMessage = "Senha Incorreta"
+            }
+            else {
+                systemErrorMessage = "Ocorreu um erro, por favor tente mais tarde"
+            }
+            setError(systemErrorMessage)
+        } finally {
+            setLoading(false)
+        }
+    }
+ 
+ 
+    useEffect(() => {
+        return () => setCancelled(true);
+    }, []);
+ 
+    return {
         auth,
         createUser,
         error,
         loading,
-      }
+        login
+    }
 }
- 
