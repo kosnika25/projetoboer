@@ -7,13 +7,13 @@ import {
 } from "firebase/auth";
 import { useState, useEffect } from 'react';
 import { db } from '../firebase/connection';
- 
+
 export const useAuthentication = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(null);
     const [cancelled, setCancelled] = useState(false);
     const auth = getAuth()
- 
+
     function checkIfIsCancelled() {
         if (cancelled) {
             return;
@@ -24,13 +24,13 @@ export const useAuthentication = () => {
         checkIfIsCancelled();
         setLoading(true);
         setError(null);
- 
- 
+
+
         try {
             const { user } = await createUserWithEmailAndPassword(
                 auth, data.displayEmail, data.displayPassword
             )
- 
+
             await updateProfile(user, {
                 displayName: data.displayName
             })
@@ -52,19 +52,19 @@ export const useAuthentication = () => {
             setLoading(false);
         }
     }
- 
+
     //método para logar ao projeto
     const login = async (data) => {
         checkIfIsCancelled()
         setLoading(true)
         setError(false)
- 
+     
         try {
             await signInWithEmailAndPassword(auth, data.email, data.password)
- 
+
         } catch (error) {
             let systemErrorMessage;
- 
+
             if (error.message.includes("user-not-found")) {
                 systemErrorMessage = "Usuário não Cadastrado"
             } else if (error.message.includes("wrong-password")) {
@@ -78,12 +78,12 @@ export const useAuthentication = () => {
             setLoading(false)
         }
     }
- 
- 
+
+
     useEffect(() => {
         return () => setCancelled(true);
     }, []);
- 
+
     return {
         auth,
         createUser,
