@@ -1,4 +1,6 @@
-import React from 'react';
+import React , {useState} from 'react';
+import {collection,addDoc} from 'firebase/firestore';
+import{db} from './Brand.module.css'
 import styles from './Brand.module.css';
 
 const Brand = () => {
