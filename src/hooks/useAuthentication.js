@@ -54,30 +54,30 @@ export const useAuthentication = () => {
     }
 
     //método para logar ao projeto
-    const login = async (data) => {
-        checkIfIsCancelled()
-        setLoading(true)
-        setError(false)
-     
-        try {
-            await signInWithEmailAndPassword(auth, data.email, data.password)
+const login = async (data, navigate) => {
+    checkIfIsCancelled();
+    setLoading(true);
+    setError(false);
 
-        } catch (error) {
-            let systemErrorMessage;
+    try {
+        await signInWithEmailAndPassword(auth, data.email, data.password);
+        navigate('/painel'); 
+    } catch (error) {
+        let systemErrorMessage;
 
-            if (error.message.includes("user-not-found")) {
-                systemErrorMessage = "Usuário não Cadastrado"
-            } else if (error.message.includes("wrong-password")) {
-                systemErrorMessage = "Senha Incorreta"
-            }
-            else {
-                systemErrorMessage = "Ocorreu um erro, por favor tente mais tarde"
-            }
-            setError(systemErrorMessage)
-        } finally {
-            setLoading(false)
+        if (error.message.includes("user-not-found")) {
+            systemErrorMessage = "Usuário não Cadastrado";
+        } else if (error.message.includes("wrong-password")) {
+            systemErrorMessage = "Senha Incorreta";
+        } else {
+            systemErrorMessage = "Ocorreu um erro, por favor tente mais tarde";
         }
+        setError(systemErrorMessage);
+    } finally {
+        setLoading(false);
     }
+}
+
 
 
     useEffect(() => {

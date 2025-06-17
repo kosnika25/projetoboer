@@ -1,5 +1,5 @@
 import { Link, Outlet } from 'react-router-dom';
-import { FaBox, FaTags } from 'react-icons/fa';
+import { MdInventory2, MdLocalOffer } from 'react-icons/md';
 import styles from './Painel.module.css';
 
 const Painel = () => {
@@ -11,12 +11,12 @@ const Painel = () => {
           <ul>
             <li>
               <Link to="products" className={styles.linkMenu}>
-                <FaBox className={styles.icone} /> Produto
+                <MdInventory2 className={styles.icone} /> Produto
               </Link>
             </li>
             <li>
               <Link to="brand" className={styles.linkMenu}>
-                <FaTags className={styles.icone} /> Marca
+                <MdLocalOffer className={styles.icone} /> Marca
               </Link>
             </li>
           </ul>
@@ -24,7 +24,6 @@ const Painel = () => {
       </aside>
 
       <main className={styles.conteudo}>
-        {/* Aqui renderiza Products ou Brand */}
         <Outlet />
       </main>
     </div>
