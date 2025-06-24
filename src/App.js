@@ -34,7 +34,7 @@ function App() {
               />
 
               <Route path="/painel" element={<Painel />}>
-                <Route path="product" element={<Product />} />
+                <Route path="products" element={<Product />} />
                 <Route path="brand" element={<Brand />} />
               </Route>
 
